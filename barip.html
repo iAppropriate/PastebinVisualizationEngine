@@ -1,0 +1,263 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="node_modules/datamaps/dist/datamaps.world.hires.min.js"></script>
+<script src="papaparse.js"></script>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width">
+<div id="bargraph" style="background: white; border:dots; Color: black; position: relative;"></div>
+<title>Bar Graph</title>
+<head>
+	<h1>Bar Graph</h1>
+	<h3>Unique IPs by country</h3>
+</head>
+<style>
+svg {
+    float:left;
+}
+#header {
+    margin-bottom:10px;
+}
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px;
+    /* We'll override height later */
+    background-color: red; //this does nothing...
+    margin-right:2px;
+}
+.axis path, .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: auto;
+}
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+</style>
+
+
+
+<script>
+var allCount=0;
+var usa=0;
+var rus=0;
+var chi=0;
+var jap=0;
+var fra=0;
+var uk=0;
+var ind=0;
+var aus=0;
+var can=0;
+var ger=0;
+var rsa=0;
+var bra=0;
+
+	Papa.parse("input2.csv", {
+		header: true,
+		download: true,
+		complete: function(results) {
+			results.data.forEach(function(elem) {
+				if (elem.name == "United States"){
+					usa++;
+				};
+				if (elem.name == "Russia"){
+					rus++;
+				};
+				if (elem.name == "China"){
+					chi++;
+				};
+				if (elem.name == "Brazil"){
+					bra++;
+				};
+				if (elem.name == "France"){
+					fra++;
+				};
+				if (elem.name == "United Kingdom"){
+					uk++;
+				};
+				if (elem.name == "India"){
+					ind++;
+				};
+				if (elem.name == "Australia"){
+					aus++;
+				};
+				if (elem.name == "Canada"){
+					can++;
+				};
+				if (elem.name == "Germany"){
+					ger++;
+				};
+				if (elem.name == "South Africa"){
+					rsa++;
+				};
+
+			});
+			console.log(results);
+		
+		}
+	});
+document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+    <script>
+    window.jQuery || document.getElementById('bargraph');
+    </script>
+<script> // BAR DATA
+var vis = {};
+vis.numValues = 20;
+vis.maxValue = 50;
+
+// Width and height
+var w = 1000; // 600
+var h = 400; // 250
+
+var dataset = [{
+        key: 0,
+	display_country: "USA",
+        value: usa
+    }, //dataset is now an array of objects.
+    {
+        key: 1,
+	display_country: "Russia",
+        value: rus
+    }, //Each object has a 'key' and a 'value'. ADD COMMA HERE
+    {
+        key: 2,
+	display_country: "China",
+        value: chi
+    },
+    {
+        key: 3,
+	display_country: "Brazil",
+        value: bra
+    }, 
+    {
+        key: 4,
+	display_country: "France",
+        value: fra
+    },
+    {
+        key: 5,
+	display_country: "UK",
+        value: uk
+    },
+    {
+        key: 6,
+	display_country: "India",
+        value: ind
+    },
+    {
+        key: 7,
+	display_country: "Australia",
+        value: aus
+    }, 
+    {
+        key: 8,
+	display_country: "Canada",
+        value: can
+    }, 
+    {
+        key: 9,
+	display_country: "Germany",
+        value: ger
+    }, 
+    {
+        key: 10,
+	display_country: "South Africa",
+        value: rsa
+    } 
+];
+var xScale = d3.scale.ordinal()
+    .domain(d3.range(dataset.length))
+    .rangeRoundBands([0, w], 0.05);
+var yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {
+        return d.value;
+    })])
+    .range([0, h]);
+
+//Define key function, to be used when binding data
+var key = function(d) {
+    return d.key;
+};
+
+//Create SVG element
+var svg = d3.select("body")
+    .append("svg")
+    .attr("width", w)
+    .attr("height", h);
+
+//Create bars
+svg.selectAll("rect")
+    .data(dataset, key)
+    .enter()
+    .append("rect")
+    .attr("x", function(d, i) {
+        return xScale(i);
+    })
+    .attr("y", function(d) {
+        return h - yScale(d.value);
+    })
+    .attr("width", xScale.rangeBand())
+    .attr("height", function(d) {
+        return yScale(d.value);
+    })
+    .attr("fill", function(d) {
+        return "rgb(225, 0, " + (d.value * 10) + ")";
+    })
+
+//On mouseover
+.on('mouseover', function() {
+    d3.select(this)
+        .attr('fill', 'blue');
+})
+.on('mouseout', function(d) {
+    d3.select(this)
+        .transition()
+        .duration(250)
+        .attr("fill", "rgb(225, 0, " + (d.value * 10) + ")");
+});
+
+//Create labels
+svg.selectAll("text")
+    .data(dataset, key)
+    .enter()
+    .append("text")
+    .text(function(d) {
+        return d.display_country + ": " + d.value;
+    })
+    .attr("text-anchor", "middle")
+    .attr("x", function(d, i) {
+        return xScale(i) + xScale.rangeBand() / 2;
+    })
+    .attr("y", function(d) {
+        return h - yScale(d.value) + 14;
+    })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "10px")
+    .attr("fill", "black");
+
+</script>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 21%;
+    position: absolute;
+    top: 50;
+    right: 20;
+}
+
+td, th {
+    border: 1px solid #000000; //also nothing
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #000000; //also does nothing
+}
+</style>
+</head>

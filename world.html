@@ -1,0 +1,225 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="node_modules/datamaps/dist/datamaps.world.hires.min.js"></script>
+<script src="papaparse.js"></script>
+<meta charset="utf8">
+<meta name="viewport" content="width=device-width">
+<h1>World Map</h1>
+<div id="map_bombs" style="background: white; position: relative; width: 800px; height: 600px;"></div>
+<title>World Map</title>
+<script>
+
+//Variables to count hits on each country
+var allCount=0;
+var usa=0;
+var rus=0;
+var chi=0;
+var jap=0;
+var fra=0;
+var uk=0;
+var ind=0;
+var aus=0;
+var can=0;
+var ger=0;
+var rsa=0;
+var bra=0;
+	//creating the bombmap structure
+	var bombMap = new Datamap({
+	    projection: 'mercator', //sets map style
+	    element: document.getElementById('map_bombs'),
+	    scope: 'world', //sets map 'zoom'
+	    geographyConfig: {
+	        popupOnHover: true,
+	        highlightOnHover: true,
+		borderColor: '#FFFFFF'
+		
+	    },
+	
+	    fills: {
+	        'USA': '#1f77b4',
+	        'RUS': '#9467bd',
+	        'PRK': '#ff7f0e',
+	        'PRC': '#2ca02c',
+	        'IND': '#e377c2',
+	        'GBR': '#8c564b',
+	        'FRA': '#d62728',
+	        'PAK': '#7f7f7f',
+	        defaultFill: '#0b5b1b'
+	    },
+	    data: {
+//	        'RUS': {fillKey: 'RUS'},
+//	        'PRK': {fillKey: 'PRK'},
+//	        'PRC': {fillKey: 'PRC'},
+//	        'IND': {fillKey: 'IND'},
+//	        'GBR': {fillKey: 'GBR'},
+//	        'FRA': {fillKey: 'FRA'},
+//	        'PAK': {fillKey: 'PAK'},
+	        'USA': {fillKey: 'USA'}
+	    }
+	});
+
+	Papa.parse("input2.csv", {
+		header: true,
+		download: true,
+		complete: function(results) {
+			results.data.forEach(function(elem) {
+				elem.radius = 5;
+				elem.fillKey = "RUS";
+				allCount++;
+				//increment variable when the countryname matches
+				if (elem.name == "United States"){
+					usa++;
+					//elem.city = allCount;
+				};
+				if (elem.name == "Russia"){
+					rus++;
+				};
+				if (elem.name == "China"){
+					chi++;
+				};
+				if (elem.name == "Brazil"){
+					bra++;
+				};
+				if (elem.name == "France"){
+					fra++;
+				};
+				if (elem.name == "United Kingdom"){
+					uk++;
+				};
+				if (elem.name == "India"){
+					ind++;
+				};
+				if (elem.name == "Australia"){
+					aus++;
+				};
+				if (elem.name == "Canada"){
+					can++;
+				};
+				if (elem.name == "Germany"){
+					ger++;
+				};
+				if (elem.name == "South Africa"){
+					rsa++;
+				};
+
+			});
+
+			console.log(results);
+			console.log(allCount);
+			console.log("USA:" + usa);
+			document.getElementById('usa').textContent = usa.toString();
+			console.log("RUS:" + rus);
+			document.getElementById('rus').textContent = rus.toString();
+			console.log("CHN:" + chi);
+			document.getElementById('chi').textContent = chi.toString();
+			console.log("BRA:" + bra);
+			document.getElementById('bra').textContent = bra.toString();
+			console.log("FRA:" + fra);
+			document.getElementById('fra').textContent = fra.toString();
+			console.log("UK:" + uk);
+			document.getElementById('uk').textContent = uk.toString();
+			console.log("IND:" + ind);
+			document.getElementById('ind').textContent = ind.toString();
+			console.log("AUS:" + aus);
+			document.getElementById('aus').textContent = aus.toString();
+			console.log("CAN:" + can);
+			document.getElementById('can').textContent = can.toString();
+			console.log("GER:" + ger);
+			document.getElementById('ger').textContent = ger.toString();
+			console.log("RSA:" + rsa);
+			document.getElementById('rsa').textContent = rsa.toString();
+			bombMap.bubbles(results.data, {
+	    			popupTemplate: function (geo, data) {
+	            		return ['<div class="hoverinfo">' +  data.name,
+		    		'<br/>IP Addresses: ' + data.ip,
+				'<br/>City: ' + data.city ,
+	            		'</div>'].join('');
+	   		 	}
+			});
+
+		}
+	});
+//	bombMap.updatePopup = function(data){
+//		data.name="Russia";
+//	};
+	
+</script>
+
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 21%;
+    position: absolute;
+    top: 50;
+    right: 20;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<table align=right>
+  <tr>
+    <th>Country</th>
+    <th>Number of IPs</th>
+  </tr>
+  <tr>
+    <td>United States</td>
+    <td><p><a id="usa"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>China</td>
+    <td><p><a id="chi"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>Brazil</td>
+    <td><p><a id="bra"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>United Kingdom</td>
+    <td><p><a id="uk"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>France</td>
+    <td><p><a id="fra"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>India</td>
+    <td><p><a id="ind"> </a> </p></td>
+  </tr>
+    <td>Russia</td>
+    <td><p><a id="rus"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>Canada</td>
+    <td><p><a id="can"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>Germany</td>
+    <td><p><a id="ger"> </a> </p></td>
+  </tr>
+  <tr>
+    <td>Australia</td>
+    <td><p><a id="aus"> </a> </p></td>
+ </tr>
+  <tr>
+    <td>South Africa</td>
+    <td><p><a id="rsa"> </a> </p></td>
+  </tr>
+  
+
+
+
+</table>
+
+</body>

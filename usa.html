@@ -1,0 +1,53 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="node_modules/datamaps/dist/datamaps.all.min.js"></script>
+<script src="papaparse.js"></script>
+<meta charset="utf8">
+<title>USA Map</title>
+<h1>United States IPs</h1>
+<meta name="viewport" content="width=device-width">
+<div id="map_bombs" style="position: relative; width: 800px; height: 600px;"></div>
+<script>
+//bombmap d3 code
+var bombMap = new Datamap({
+    projection: 'mercator',
+    element: document.getElementById('map_bombs'),
+    scope: 'usa',
+    geographyConfig: {
+        popupOnHover: true,
+        highlightOnHover: true
+    },
+    fills: {
+        'USA': '#1f77b4',
+        'RUS': '#9467bd',
+        defaultFill: '#0b5b1b'
+    },
+    data: {
+        'RUS': {fillKey: 'RUS'},
+        'USA': {fillKey: 'USA'}
+    }
+});
+			
+//creating structure by parsing csv by autodelimiting(,)
+Papa.parse("usa.csv", { //input file specified
+	header: true,
+	download: true,
+	complete: function(results) {
+		console.log(results.meta.delimiter);
+		results.data.forEach(function(elem) {
+			elem.radius = 7;
+			elem.fillKey = "RUS";
+		});
+		console.log(results);
+		
+		//when you hover over the circle...
+		bombMap.bubbles(results.data, {
+    			popupTemplate: function (geo, data) {
+            		return ['<div class="hoverinfo">' +  data.name,
+	    		'<br/>IP Addresses: ' + data.ip + '',
+            		'</div>'].join('');
+   		 	}
+		});
+	}
+});	
+</script>
