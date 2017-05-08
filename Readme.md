@@ -1,6 +1,9 @@
 # The Pastebin Visualization Project
 
-Lucas Christian, Sam Merchant, and Akshit Jain
+Core Contributors:
+Lucas Christian (lxc6101@rit.edu)
+Sam Merchant (shm7372@rit.edu)
+Akshit Jain (avj2668@rit.edu)
 
 ## Back-end:
 
