@@ -1,4 +1,4 @@
-# The Pastebin Visualization Project
+# The Pastebin Visualization Engine
 
 Core Contributors:
 Lucas Christian (lxc6101@rit.edu)
