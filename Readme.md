@@ -6,7 +6,7 @@ Sam Merchant (shm7372@rit.edu)
 Akshit Jain (avj2668@rit.edu)
 
 ## Summary:
-The goal of this project is to visualize pastebin pastebin data using datasets of our chosing and subsequently visualize that data in a useful format. For an academic demonstration we decided to visualize IP addresses, domains and email addresses. The project is a two-prong approach. The first segment involves data of interest in obtained using a Pastebin Scraper and processed into either a TSV or a CSV. The second phase involves reading this data into a Javascript object that matches the appropriate visualization.
+The goal of this project is to visualize pastebin pastebin data using datasets of our chosing and subsequently visualize that data in a useful format. For an academic demonstration we decided to visualize IP addresses, domains and email addresses. The project is a two-prong approach. The first segment involves data of interest obtained using a Pastebin Scraper being processed into either a TSV or a CSV. The second phase involves reading this data into a Javascript object that matches the appropriate visualization.
 
 ## Back-end:
 
