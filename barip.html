@@ -59,7 +59,7 @@ var rsa=0;
 var bra=0;
 
 	// Passing the file to read its contents
-	Papa.parse("input2.csv", {
+	Papa.parse("countries.csv", {
 		header: true,
 		download: true,
 		complete: function(results) {
@@ -68,37 +68,37 @@ var bra=0;
 			// matches one of the desired countries. 
 			// Increment that specific counter.
 			results.data.forEach(function(elem) {
-				if (elem.name == "United States"){
+				if (elem.country_name == "United States"){
 					usa++;
 				};
-				if (elem.name == "Russia"){
+				if (elem.country_name == "Russia"){
 					rus++;
 				};
-				if (elem.name == "China"){
+				if (elem.country_name == "China"){
 					chi++;
 				};
-				if (elem.name == "Brazil"){
+				if (elem.country_name == "Brazil"){
 					bra++;
 				};
-				if (elem.name == "France"){
+				if (elem.country_name == "France"){
 					fra++;
 				};
-				if (elem.name == "United Kingdom"){
+				if (elem.country_name == "United Kingdom"){
 					uk++;
 				};
-				if (elem.name == "India"){
+				if (elem.country_name == "India"){
 					ind++;
 				};
-				if (elem.name == "Australia"){
+				if (elem.country_name == "Australia"){
 					aus++;
 				};
-				if (elem.name == "Canada"){
+				if (elem.country_name == "Canada"){
 					can++;
 				};
-				if (elem.name == "Germany"){
+				if (elem.country_name == "Germany"){
 					ger++;
 				};
-				if (elem.name == "South Africa"){
+				if (elem.country_name == "South Africa"){
 					rsa++;
 				};
 
