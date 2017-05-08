@@ -6,7 +6,7 @@ Sam Merchant (shm7372@rit.edu)
 Akshit Jain (avj2668@rit.edu)
 
 ## Summary:
-Our goal is to make a product that can scrape posts to pastebin for contents of our chosing and visualize the information in a useful format. We approached this task in two parts. First we grab files from pastebin and form the data into a csv or tsv for convinience. Next we read this data into a format that matches the appropriate visualization. 
+The goal of this project is to visualize pastebin data using datasets of our chosing and subsequently visualize that data in a useful format. For an academic demonstration we decided to visualize IP addresses, domains and email addresses. The project is a two-prong approach. The first segment involves data of interest obtained using a Pastebin Scraper and then processed into either a TSV or a CSV. The second phase involves reading this data into a Javascript object that matches the appropriate visualization.
 
 ## Back-end:
 
