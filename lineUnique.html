@@ -1,0 +1,28 @@
+<link href="/c3/htdocs/css/c3.css" rel="stylesheet" type="text/css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>-->
+<script src="c3/htdocs/js/c3.js"></script>
+<h1>Unique IPs, Domains, and Emails</h1>
+<title>Unique Line</title>
+<body>
+<div id="chart"></div>
+<script>
+
+var chart = c3.generate({
+    data: {
+        url: 'pastebinUnique.tsv',
+	mimeType: 'tsv',
+        type: 'line',
+	x: 'Date'
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+                format: '%Y-%m-%d'
+            }
+        }
+    }
+});
+</script>
+</body>

@@ -5,6 +5,7 @@
 <meta charset="utf8">
 <meta name="viewport" content="width=device-width">
 <h1>World Map</h1>
+<h2>Based on Unique IP Address Geolocation Data</h2>
 <div id="map_bombs" style="background: white; position: relative; width: 800px; height: 600px;"></div>
 <title>World Map</title>
 <script>
@@ -36,8 +37,8 @@ var bra=0;
 	    },
 	
 	    fills: {
-	        'USA': '#1f77b4',
-	        'RUS': '#9467bd',
+	        'USA': '#4E3F79',
+	        'RUS': '#4E3F79',
 	        'PRK': '#ff7f0e',
 	        'PRC': '#2ca02c',
 	        'IND': '#e377c2',
@@ -54,7 +55,7 @@ var bra=0;
 //	        'GBR': {fillKey: 'GBR'},
 //	        'FRA': {fillKey: 'FRA'},
 //	        'PAK': {fillKey: 'PAK'},
-	        'USA': {fillKey: 'USA'}
+//	        'USA': {fillKey: 'USA'}
 	    }
 	});
 
@@ -64,12 +65,12 @@ var bra=0;
 		complete: function(results) {
 			results.data.forEach(function(elem) {
 				elem.radius = 5;
+				//elem.borderColor = "RUS";
 				elem.fillKey = "RUS";
 				allCount++;
 				//increment variable when the countryname matches
 				if (elem.name == "United States"){
 					usa++;
-					//elem.city = allCount;
 				};
 				if (elem.name == "Russia"){
 					rus++;

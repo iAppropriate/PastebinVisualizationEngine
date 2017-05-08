@@ -9,7 +9,7 @@
 <title>Bar Graph</title>
 <head>
 	<h1>Bar Graph</h1>
-	<h3>Unique IPs by country</h3>
+	<h3>Unique IP Count for Sample of Countries</h3>
 </head>
 <style>
 svg {
@@ -21,9 +21,11 @@ svg {
 div.bar {
     display: inline-block;
     width: 20px;
-    height: 75px;
+
     /* We'll override height later */
-    background-color: red; //this does nothing...
+    height: 75px;
+    
+	background-color: red; .
     margin-right:2px;
 }
 .axis path, .axis line {
@@ -38,8 +40,10 @@ div.bar {
 </style>
 
 
-
 <script>
+
+// IP counters for the countries
+// to be graphed. 
 var allCount=0;
 var usa=0;
 var rus=0;
@@ -54,10 +58,15 @@ var ger=0;
 var rsa=0;
 var bra=0;
 
+	// Passing the file to read its contents
 	Papa.parse("input2.csv", {
 		header: true,
 		download: true,
 		complete: function(results) {
+			
+			// For each line, if the country in the file
+			// matches one of the desired countries. 
+			// Increment that specific counter.
 			results.data.forEach(function(elem) {
 				if (elem.name == "United States"){
 					usa++;
@@ -112,6 +121,12 @@ vis.maxValue = 50;
 var w = 1000; // 600
 var h = 400; // 250
 
+// build the dataset with 
+// an array of objects.
+// The object contains the name
+// of the country and the 
+// count for unique ips.
+
 var dataset = [{
         key: 0,
 	display_country: "USA",
@@ -121,7 +136,7 @@ var dataset = [{
         key: 1,
 	display_country: "Russia",
         value: rus
-    }, //Each object has a 'key' and a 'value'. ADD COMMA HERE
+    }, 
     {
         key: 2,
 	display_country: "China",
@@ -166,7 +181,7 @@ var dataset = [{
         key: 10,
 	display_country: "South Africa",
         value: rsa
-    } 
+    } //Each object has a 'key' and a 'value'. ADD COMMA HERE
 ];
 var xScale = d3.scale.ordinal()
     .domain(d3.range(dataset.length))
@@ -204,19 +219,19 @@ svg.selectAll("rect")
         return yScale(d.value);
     })
     .attr("fill", function(d) {
-        return "rgb(225, 0, " + (d.value * 10) + ")";
+        return "rgb(255, 153, 51)";
     })
 
 //On mouseover
 .on('mouseover', function() {
     d3.select(this)
-        .attr('fill', 'blue');
+        .attr('fill', "rgb(0,102,255)");
 })
 .on('mouseout', function(d) {
     d3.select(this)
         .transition()
         .duration(250)
-        .attr("fill", "rgb(225, 0, " + (d.value * 10) + ")");
+	.attr("fill", "rgb(255,153,51)");
 });
 
 //Create labels

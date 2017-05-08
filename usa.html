@@ -3,8 +3,9 @@
 <script src="node_modules/datamaps/dist/datamaps.all.min.js"></script>
 <script src="papaparse.js"></script>
 <meta charset="utf8">
-<title>USA Map</title>
-<h1>United States IPs</h1>
+<title>US Map</title>
+<h1>United States Map</h1>
+<h2>Based on Unique IP Address Geolocation Data</h2>
 <meta name="viewport" content="width=device-width">
 <div id="map_bombs" style="position: relative; width: 800px; height: 600px;"></div>
 <script>
@@ -45,6 +46,7 @@ Papa.parse("usa.csv", { //input file specified
     			popupTemplate: function (geo, data) {
             		return ['<div class="hoverinfo">' +  data.name,
 	    		'<br/>IP Addresses: ' + data.ip + '',
+			'<br/>City: ' + data.city ,
             		'</div>'].join('');
    		 	}
 		});
