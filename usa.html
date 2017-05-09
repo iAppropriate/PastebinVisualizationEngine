@@ -44,7 +44,7 @@ Papa.parse("usa.csv", { //input file specified
 		//when you hover over the circle...
 		bombMap.bubbles(results.data, {
     			popupTemplate: function (geo, data) {
-            		return ['<div class="hoverinfo">' +  data.name,
+            		return ['<div class="hoverinfo">' +  data.country_name,
 	    		'<br/>IP Addresses: ' + data.ip + '',
 			'<br/>City: ' + data.city ,
             		'</div>'].join('');

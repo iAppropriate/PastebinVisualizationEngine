@@ -131,7 +131,7 @@ var bra=0;
 			document.getElementById('rsa').textContent = rsa.toString();
 			bombMap.bubbles(results.data, {
 	    			popupTemplate: function (geo, data) {
-	            		return ['<div class="hoverinfo">' +  data.name,
+	            		return ['<div class="hoverinfo">' +  data.country_name,
 		    		'<br/>IP Addresses: ' + data.ip,
 				'<br/>City: ' + data.city ,
 	            		'</div>'].join('');
